@@ -79,7 +79,8 @@ open class RouteOptions: DirectionsOptions {
         assert(!queries.isEmpty, "No query")
         
         let queryComponent = queries.joined(separator: ";")
-        return "directions/v5/\(profileIdentifier.rawValue)/\(queryComponent).json"
+//         return "directions/v5/\(profileIdentifier.rawValue)/\(queryComponent).json"
+     return "navigation/directions/v5/\(profileIdentifier.rawValue)/\(queryComponent)"
     }
 
     /**
