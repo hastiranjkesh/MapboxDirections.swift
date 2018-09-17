@@ -148,7 +148,8 @@ open class Directions: NSObject {
             baseURLComponents.host = host
             apiEndpoint = baseURLComponents.url!
         } else {
-            apiEndpoint = URL(string:(defaultApiEndPointURLString ?? "https://api.mapbox.com"))!
+//             apiEndpoint = URL(string:(defaultApiEndPointURLString ?? "https://api.mapbox.com"))!
+            apiEndpoint = URL(string:(defaultApiEndPointURLString ?? "https://direction.raah.ir"))!
         }
         
     }
@@ -260,6 +261,7 @@ open class Directions: NSObject {
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        request.setValue("Basic S1BDeXpIU2xud1pIOjIqPX0mSDIzfj9KQyR2KFE=", forHTTPHeaderField: "Authorization")
         
         if let data = data {
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
@@ -307,7 +309,10 @@ open class Directions: NSObject {
         let unparameterizedURL = URL(string: options.path, relativeTo: apiEndpoint)!
         var components = URLComponents(url: unparameterizedURL, resolvingAgainstBaseURL: true)!
         components.queryItems = params
-        return components.url!
+//         return components.url!
+        let newURL = components.url!.absoluteString.replacingOccurrences(of: "%3B", with: ";", options: .caseInsensitive)
+        
+        return URL(string: newURL)!
     }
     
     /**
